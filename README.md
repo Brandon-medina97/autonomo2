@@ -1,54 +1,84 @@
 # autonomo2
-Juego del el Ahorcado en Python
-Descripción
-Este proyecto consiste en la implementación básica del juego del ahorcado utilizando el lenguaje de programación Python.
-El programa selecciona una palabra aleatoria de una lista y el usuario debe adivinarla ingresando letras.
-Tecnologías utilizadas
-Lenguaje: Python 3
-Librerías:
-random (librería estándar de Python)
-La librería random pertenece a la biblioteca estándar de Python, por lo que no requiere instalación adicional.
-Se utiliza para seleccionar una palabra aleatoria de una lista.
+# 🎮 Juego del Ahorcado en Python
 
+Este es un proyecto simple del clásico juego del **Ahorcado**, desarrollado en Python. El programa selecciona una palabra al azar y el jugador debe adivinarla letra por letra antes de quedarse sin vidas.
+
+
+
+## Características
+
+* Selección aleatoria de palabras
+* Sistema de vidas (6 intentos)
+* Visualización del progreso con guiones (`_`)
+* Actualización dinámica de letras correctas
+* Mensajes de victoria o derrota
+
+
+
+## ¿Cómo funciona?
+
+1. El programa elige una palabra al azar de una lista.
+2. Se muestran guiones representando cada letra.
+3. El usuario ingresa una letra.
+4. Si la letra está en la palabra:
+
+   * Se revela en la posición correcta.
+5. Si no está:
+
+   * Se pierde una vida.
+6. El juego termina cuando:
+
+   * Se adivina la palabra ✅
+   * Se acaban las vidas ❌
+
+
+
+## Código
+
+```python
 import random as r
-Palabra_elegida = r.choice(PALABRAS)
 
-Funcionamiento del programa
+def ahorcado():
+    palabra = ["pelota", "casa", "carro"]
+    eleccion = r.choice(palabra)
+    vidas = 6
+    palabra_adivinada = ["_"] * len(eleccion)
 
-El programa sigue estos pasos:
+    while vidas > 0 and "_" in palabra_adivinada:
+        print(" ".join(palabra_adivinada))
+        letra = input("dime una letra: ")
 
-Se define una lista de palabras:
-PALABRAS = ["escuela", "aereopuerto", "casa", "pelota", "leon"]
-Se selecciona una palabra aleatoria:
-Palabra_elegida = r.choice(PALABRAS)
-Se genera una representación oculta de la palabra usando guiones bajos:
-for letra in Palabra_elegida:
-    generador_de_espacio += "_ "
-El usuario ingresa una letra:
-letra_usuario = input("Ingrese una Letra ")
-Se verifica si la letra ingresada está en la palabra:
-for validacion in Palabra_elegida:
-    if validacion == letra_usuario:
-        reemplazar_espacio += letra_usuario
+        if letra in eleccion:
+            for i, let in enumerate(eleccion):
+                if let == letra:
+                    palabra_adivinada[i] = letra
+        else:
+            vidas -= 1
+            print(f"te quedan {vidas} vidas")
 
-        Lógica del juego
-Se recorre la palabra letra por letra usando un ciclo for
-Se compara cada letra con la ingresada por el usuario
-Si coincide, se reemplaza el guion bajo _ por la letra correcta
-El proceso se repite hasta completar la palabra
+    if "_" not in palabra_adivinada:
+        print("felicidades ganaste")
+    else:
+        print("lo siento perdiste")
 
-Estado del proyecto
+ahorcado()
 
- En desarrollo
 
-Actualmente el programa:
+## Posibles mejoras
 
-Selecciona palabras aleatorias
-Permite ingresar letras
-Realiza validaciones básicas
+* Agregar más palabras
+* Evitar letras repetidas
+* Mostrar letras ya usadas
+* Añadir dificultad (fácil, medio, difícil)
 
-Futuras mejoras:
 
-Guardar letras correctas
-Contador de intentos
-Mensaje de victoria/derrota
+##  Autor
+
+Desarrollado por **Brando Medina** como práctica de programación en Python.
+
+
+##  Tecnologías usadas
+
+* Python 3
+* Módulo `random`
+
